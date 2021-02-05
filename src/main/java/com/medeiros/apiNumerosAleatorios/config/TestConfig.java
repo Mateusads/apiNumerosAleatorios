@@ -21,10 +21,11 @@ public class TestConfig implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 
+	Long numero1 = (long) 123123;
+	Long numero2 = (long) 132131;
 	
-	
-	Loteria lot1 = new Loteria(null, "mateus@medeiros", 123123);
-	Loteria lot2 = new Loteria(null, "medeiros@medeiros", 1223133);
+	Loteria lot1 = new Loteria(null, "mateus@medeiros", numero2);
+	Loteria lot2 = new Loteria(null, "medeiros@medeiros", numero1);
 	
 	repository.saveAll(Arrays.asList(lot1, lot2));
 	

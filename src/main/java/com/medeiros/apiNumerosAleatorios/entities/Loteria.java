@@ -24,11 +24,11 @@ public class Loteria implements Serializable{
 	@Column(unique = true)
 	String email;
 	@Column(unique = true)
-	ArrayList<Integer> numeroAleatorio = new ArrayList<Integer>();
+	ArrayList<Long> numeroAleatorio = new ArrayList<Long>();
 
 
 	
-		public Loteria(Long id, String email, Integer numeroAleatorio) {
+		public Loteria(Long id, String email, Long numeroAleatorio) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -37,7 +37,7 @@ public class Loteria implements Serializable{
 		
 	}
 		
-	public void addNumero(Integer numeroAleatorio) {
+	public void addNumero(Long numeroAleatorio) {
 		this.numeroAleatorio.add(numeroAleatorio);
 	}
 	
@@ -62,11 +62,11 @@ public class Loteria implements Serializable{
 		this.email = email;
 	}
 	
-	public ArrayList<Integer> getNumeroAleatorio() {
+	public ArrayList<Long> getNumeroAleatorio() {
 		return numeroAleatorio;
 	}
 	
-	public void setNumeroAleatorio(ArrayList<Integer> numeroAleatorio) {
+	public void setNumeroAleatorio(ArrayList<Long> numeroAleatorio) {
 		this.numeroAleatorio = numeroAleatorio;
 	}
 
