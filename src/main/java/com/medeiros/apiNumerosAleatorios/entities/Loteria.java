@@ -1,13 +1,20 @@
 package com.medeiros.apiNumerosAleatorios.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Loteria implements Serializable{
@@ -22,9 +29,13 @@ public class Loteria implements Serializable{
 	
 	
 	@Column(unique = true)
-	String email;
-	@Column(unique = true)
-	ArrayList<Long> numeroAleatorio = new ArrayList<Long>();
+	private String email;
+	
+
+
+	@ElementCollection(targetClass=Long.class)
+	@Fetch(FetchMode.JOIN)
+	private Set<Long> numeroAleatorio = new HashSet<Long>();
 
 
 	
@@ -62,11 +73,11 @@ public class Loteria implements Serializable{
 		this.email = email;
 	}
 	
-	public ArrayList<Long> getNumeroAleatorio() {
+	public Set<Long> getNumeroAleatorio() {
 		return numeroAleatorio;
 	}
 	
-	public void setNumeroAleatorio(ArrayList<Long> numeroAleatorio) {
+	public void setNumeroAleatorio(Set<Long> numeroAleatorio) {
 		this.numeroAleatorio = numeroAleatorio;
 	}
 

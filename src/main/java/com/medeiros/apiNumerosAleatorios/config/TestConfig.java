@@ -24,8 +24,8 @@ public class TestConfig implements CommandLineRunner{
 	Long numero1 = (long) 123123;
 	Long numero2 = (long) 132131;
 	
-	Loteria lot1 = new Loteria(null, "mateus@medeiros", numero2);
-	Loteria lot2 = new Loteria(null, "medeiros@medeiros", numero1);
+	Loteria lot1 = new Loteria(null, "mateus@medeiros", numero1);
+	Loteria lot2 = new Loteria(null, "medeiros@medeiros", numero2);
 	
 	repository.saveAll(Arrays.asList(lot1, lot2));
 	

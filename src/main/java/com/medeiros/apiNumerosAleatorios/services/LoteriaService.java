@@ -2,13 +2,16 @@ package com.medeiros.apiNumerosAleatorios.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.medeiros.apiNumerosAleatorios.entities.Loteria;
 import com.medeiros.apiNumerosAleatorios.repositories.LoteriaRepository;
+import com.medeiros.apiNumerosAleatorios.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class LoteriaService {
@@ -22,9 +25,16 @@ public class LoteriaService {
 		return loteriaRepository.findAll();
 	}
 
+	public Optional<Loteria> findById(int i) {
+		long id = i;
+		Optional<Loteria> obj = loteriaRepository.findById(id);
+		return Optional.of(obj.orElseThrow(() -> new ResourceNotFoundException(i)));
+
+	}
+
 	public Loteria sorteio(Loteria obj) {
 		entity = loteriaRepository.findAll();
-		int i = 0; 
+		int i = 0;
 		Long numeroAleatorio;
 
 		if (verificarEmail(obj) == true) {
@@ -40,9 +50,8 @@ public class LoteriaService {
 	}
 
 	public Long sortearNumero() {
-		Random gerador = new Random();
-//		Integer numeroAleatorio = gerador.nextInt((999999 - 111111) + 1) + 111111;
-		Long numeroAleatorio = (long) (Math.random()*10+5);
+
+		Long numeroAleatorio = (long) (Math.random() * 99999 + 10000);
 		return numeroAleatorio;
 
 	}
@@ -63,38 +72,17 @@ public class LoteriaService {
 
 	public Long verificaNumerosIguais(Loteria loteriaUpdate) {
 
-		ArrayList<Long> numerosAleatorios = new ArrayList<Long>();
+		Set<Long> numerosAleatorios = new HashSet<>();
 		numerosAleatorios = loteriaUpdate.getNumeroAleatorio();
-		int tamanho = numerosAleatorios.size();
+		// int tamanho = numerosAleatorios.size();
 		Long numeroSorteio = (long) 0;
+		boolean contem;
 		numeroSorteio = sortearNumero();
-		boolean numeroRepitido = true;
-		
-		System.out.println("numeros aleatorios " + numerosAleatorios);
-		
-		System.out.println("tamanho " + tamanho );		
-		
 
-
-		while (numeroRepitido) {
-
-			for (int i = 0; i < tamanho; i++) {				
-				System.out.println("array numeros " + numerosAleatorios);
-				System.out.println("dentro do for / numero sorteado " + numeroSorteio );
-				if (numerosAleatorios.get(i).equals(numeroSorteio)) {
-					System.out.println("dentro do if " );
-					numeroSorteio = sortearNumero();
-					i = -1;
-					numeroRepitido = true;
-				}else if(i == tamanho-1){
-					System.out.println("dentro do elseIf ");					
-					numeroRepitido = false;
-				}
-			}
-
-		}
-
-		return numeroSorteio;
+		if (!numerosAleatorios.contains(numeroSorteio)) {
+			return numeroSorteio;
+		} else
+			return numeroSorteio;
 
 	}
 }
