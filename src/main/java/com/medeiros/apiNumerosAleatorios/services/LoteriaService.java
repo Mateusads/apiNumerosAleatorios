@@ -16,6 +16,7 @@ public class LoteriaService {
 	@Autowired
 	private LoteriaRepository loteriaRepository;
 	private List<Loteria> entity = new ArrayList<>();
+	private Loteria loteriaUpdate = new Loteria();
 
 	public List<Loteria> findAll() {
 		return loteriaRepository.findAll();
@@ -23,17 +24,25 @@ public class LoteriaService {
 
 	public Loteria sorteio(Loteria obj) {
 		entity = loteriaRepository.findAll();
-		int i = 0, numeroAleatorio = SortearNumero();
-		
-		if(verificarEmail(obj) == true) {
-			obj.addNumero(numeroAleatorio);
-			return loteriaRepository.save(obj);
+		int i = 0, numeroAleatorio;
+
+		if (verificarEmail(obj) == true) {
+			numeroAleatorio = SortearNumero();
 			
-		}else
-			obj.addNumero(SortearNumero());
-			return loteriaRepository.save(obj);
-			
-			
+			if (verificaNumerosIguais(obj, numeroAleatorio) == true) {
+				loteriaUpdate.addNumero(numeroAleatorio);
+				return loteriaRepository.save(loteriaUpdate);
+			}else {
+				numeroAleatorio = SortearNumero();
+				loteriaUpdate.addNumero(numeroAleatorio);
+				return loteriaRepository.save(loteriaUpdate);
+			}
+
+		} else
+			numeroAleatorio = SortearNumero();
+		obj.addNumero(SortearNumero());
+		return loteriaRepository.save(obj);
+
 //
 //		for (Loteria loteria : entity) {
 //			loteria = entity.get(i);
@@ -50,8 +59,6 @@ public class LoteriaService {
 //				return loteriaRepository.save(loteria);
 //			}
 //		}
-
-
 
 	}
 
@@ -71,11 +78,30 @@ public class LoteriaService {
 			System.out.println(obj.getEmail());
 			i++;
 			if (loteria.getEmail().equals(obj.getEmail())) {
+				loteriaUpdate = loteria;
 				return true;
 			}
 		}
 		return false;
 
+	}
+
+	public boolean verificaNumerosIguais(Loteria obj, int numeroAleatorio) {
+				
+		ArrayList<Integer> numerosAleatorios = new ArrayList<Integer>();		
+		numerosAleatorios = obj.getNumeroAleatorio();		
+		int tamanho = numerosAleatorios.size();
+		
+		for(int i = 0; i < tamanho; i++) {
+			
+			if(numerosAleatorios.equals(numeroAleatorio)) {
+				return true;
+				
+			}			
+		}
+		
+		return false;
+		
 	}
 
 }

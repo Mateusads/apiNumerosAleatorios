@@ -25,7 +25,7 @@ public class Loteria implements Serializable{
 	String email;
 	@Column(unique = true)
 	ArrayList<Integer> numeroAleatorio = new ArrayList<Integer>();
-	
+
 
 	
 		public Loteria(Long id, String email, Integer numeroAleatorio) {
