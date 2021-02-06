@@ -1,0 +1,14 @@
+<bean id="flywayConfig" class="org.flywaydb.core.api.configuration.ClassicConfiguration">
+    <property name="dataSource" ref="..."/>
+    ...
+</bean>
+
+<bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate">
+    <constructor-arg ref="flywayConfig"/>
+</bean>
+
+<!-- The rest of the application (incl. Hibernate) -->
+<!-- Must be run after Flyway to ensure the database is compatible with the code -->
+<bean id="sessionFactory" class="..." depends-on="flyway">
+    ...
+</bean>

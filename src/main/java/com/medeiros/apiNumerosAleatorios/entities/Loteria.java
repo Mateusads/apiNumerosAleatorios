@@ -7,16 +7,19 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 @Entity
+@Table(name = "loteria")
 public class Loteria implements Serializable{
 	private static final long serialVersionUID = 1L;
 
@@ -28,13 +31,15 @@ public class Loteria implements Serializable{
 	private Long id;
 	
 	
-	@Column(unique = true)
+	@Column(unique = true, name = "email")
 	private String email;
 	
 
 
+
 	@ElementCollection(targetClass=Long.class)
 	@Fetch(FetchMode.JOIN)
+	@Column(name = "numeros")
 	private Set<Long> numeroAleatorio = new HashSet<Long>();
 
 
