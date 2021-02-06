@@ -85,4 +85,9 @@ public class LoteriaService {
 			return numeroSorteio;
 
 	}
+
+	public Loteria saveLoteria(Loteria loteria) {
+		loteriaRepository.save(loteria);
+		return null;
+	}
 }
