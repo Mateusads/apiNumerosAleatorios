@@ -41,6 +41,7 @@ public class LoteriaServiceTest {
 	
 	@Test
 	public void save_loteria_repository() throws Exception{
+		
 		loteriaService.saveLoteria(loteria);
 		
 	}	
