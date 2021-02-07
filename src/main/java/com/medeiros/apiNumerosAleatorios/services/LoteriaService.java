@@ -60,8 +60,13 @@ public class LoteriaService {
 		int i = 0;
 		for (Loteria loteria : entity) {
 			loteria = entity.get(i);
+			String string1, string2;
+			string1 = String.valueOf(entity.get(i).getEmail());
+			string2 = String.valueOf(obj.getEmail());
+			string1 = string1.trim();
 			i++;
-			if (loteria.getEmail().equals(obj.getEmail())) {
+			
+			if(string1.equalsIgnoreCase(string2)) {
 				loteriaUpdate = loteria;
 				return true;
 			}
