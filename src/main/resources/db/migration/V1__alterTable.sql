@@ -6,8 +6,6 @@ CREATE TABLE public.loteria
     PRIMARY KEY (id)
 );
 
-ALTER TABLE public.loteria
-    OWNER to postgres;
 		
 		
 CREATE TABLE loteria_numero_aleatorio
