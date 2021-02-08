@@ -1,10 +1,5 @@
 package com.medeiros.apiNumerosAleatorios.test.service;
 
-import static org.mockito.Mockito.verify;
-
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,8 +17,11 @@ public class LoteriaServiceTest {
 	@MockBean
 	private LoteriaRepository loteriaRepository;	
 	
+	@MockBean
 	private LoteriaService loteriaService;
 	
+	
+	@MockBean
 	private Loteria loteria;
 	
 	private static final String EMAIL = "Mateus";
