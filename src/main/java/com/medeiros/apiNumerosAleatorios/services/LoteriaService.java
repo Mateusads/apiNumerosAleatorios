@@ -66,7 +66,6 @@ public class LoteriaService {
 			string1 = string1.trim();
 			loteriaUpdate.setEmail(string1);
 			return loteriaRepository.save(loteriaUpdate);
-
 		} else
 			numeroAleatorio = sortearNumero();
 		obj.addNumero(sortearNumero());
