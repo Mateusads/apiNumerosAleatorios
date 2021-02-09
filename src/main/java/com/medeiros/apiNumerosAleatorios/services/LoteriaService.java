@@ -1,16 +1,19 @@
 package com.medeiros.apiNumerosAleatorios.services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.medeiros.apiNumerosAleatorios.entities.Loteria;
 import com.medeiros.apiNumerosAleatorios.repositories.LoteriaRepository;
+import com.medeiros.apiNumerosAleatorios.services.exceptions.DataBaseException;
 import com.medeiros.apiNumerosAleatorios.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -32,6 +35,22 @@ public class LoteriaService {
 
 	}
 
+	public Loteria findByEmail(Loteria loteriaEmail) {
+		int i = 0;
+		for (Loteria loteria : entity) {
+			String string1, string2;
+			string1 = String.valueOf(entity.get(i).getEmail());
+			string2 = String.valueOf(loteriaEmail.getEmail());
+			string1 = string1.trim();
+			i++;
+			if (string1.equalsIgnoreCase(string2)) {
+				return loteria;
+			}
+		}
+		return null;
+
+	}
+
 	public Loteria sorteio(Loteria obj) {
 		entity = loteriaRepository.findAll();
 		int i = 0;
@@ -40,6 +59,9 @@ public class LoteriaService {
 		if (verificarEmail(obj) == true) {
 			numeroAleatorio = verificaNumerosIguais(loteriaUpdate);
 			loteriaUpdate.addNumero(numeroAleatorio);
+			String string1 = obj.getEmail();
+			string1 = string1.trim();
+			loteriaUpdate.setEmail(string1);
 			return loteriaRepository.save(loteriaUpdate);
 
 		} else
@@ -65,8 +87,8 @@ public class LoteriaService {
 			string2 = String.valueOf(obj.getEmail());
 			string1 = string1.trim();
 			i++;
-			
-			if(string1.equalsIgnoreCase(string2)) {
+
+			if (string1.equalsIgnoreCase(string2)) {
 				loteriaUpdate = loteria;
 				return true;
 			}
@@ -79,9 +101,7 @@ public class LoteriaService {
 
 		Set<Long> numerosAleatorios = new HashSet<>();
 		numerosAleatorios = loteriaUpdate.getNumeroAleatorio();
-		// int tamanho = numerosAleatorios.size();
 		Long numeroSorteio = (long) 0;
-		boolean contem;
 		numeroSorteio = sortearNumero();
 
 		if (!numerosAleatorios.contains(numeroSorteio)) {
@@ -94,5 +114,16 @@ public class LoteriaService {
 	public Loteria saveLoteria(Loteria loteria) {
 		loteriaRepository.save(loteria);
 		return null;
+	}
+
+	public void delete(Long id) {
+		try {
+			loteriaRepository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataBaseException(e.getMessage());
+		}
+
 	}
 }

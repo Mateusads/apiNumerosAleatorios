@@ -1,6 +1,14 @@
 package com.medeiros.apiNumerosAleatorios.test.service;
 
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -43,6 +51,9 @@ public class LoteriaServiceTest {
 		loteriaService.saveLoteria(loteria);
 		
 	}	
+	
+
+	
 
 
 }
