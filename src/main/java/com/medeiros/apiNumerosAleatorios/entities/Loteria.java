@@ -28,7 +28,6 @@ public class Loteria implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
 	private Long id;	
 
 	@Email
