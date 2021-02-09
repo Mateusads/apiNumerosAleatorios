@@ -39,9 +39,8 @@ public class LoteriaService {
 		int i = 0;
 		for (Loteria loteria : entity) {
 			String string1, string2;
-			string1 = String.valueOf(entity.get(i).getEmail());
-			string2 = String.valueOf(loteriaEmail.getEmail());
-			string1 = string1.trim();
+			string1 = String.valueOf(entity.get(i).getEmail().trim());
+			string2 = String.valueOf(loteriaEmail.getEmail().trim());
 			i++;
 			if (string1.equalsIgnoreCase(string2)) {
 				return loteria;
