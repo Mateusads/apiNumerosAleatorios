@@ -37,18 +37,22 @@ public class LoteriaService {
 
 	public Loteria findByEmail(Loteria loteriaEmail) {
 		int i = 0;
+		entity = findAll();
 		for (Loteria loteria : entity) {
 			String string1, string2;
 			string1 = String.valueOf(entity.get(i).getEmail().trim());
 			string2 = String.valueOf(loteriaEmail.getEmail().trim());
 			i++;
 			if (string1.equalsIgnoreCase(string2)) {
-				return loteria;
-			}
-		}
+				return entity.get(i);
+			}			
+		}		
 		return null;
 
 	}
+	
+
+	
 
 	public Loteria sorteio(Loteria obj) {
 		entity = loteriaRepository.findAll();

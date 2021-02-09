@@ -59,7 +59,7 @@ public class LoteriaResource {
 					.toUri();
 			return ResponseEntity.created(uri).body(loteria);
 		}else
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.noContent().build();
 
 
 
