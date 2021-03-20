@@ -39,7 +39,7 @@ Como convenção as API rest são divididas em 3 camadas conforme o MVC (Model V
 Vou criar o pacote Entidade, neste pacote vai conter a classe Loteria. (Obs: se for usar o TDD pode começar a criar os testes automatizados, com spring Initializr
 ja vem um pacote para testes com Junit).
 
-<h2>CRIANDO CLASSE
+<h2>CRIANDO CLASSE</h2>
   
 A classe Loteria possui a função de Entidade onde vão conter os atributos necessários que serão salvo no banco de dados.Nessa classe vamos implementar o Serializable para que seja possível enviar os dados no formato Json.
 
@@ -54,19 +54,19 @@ As anotações @ElementCollection(targetClass=Long.class) @Fetch(FetchMode.JOIN)
 por conta que o Hibernate por padrão é Lazy e não consegue fazer as consultas com o tipoHashSet assim a anotação com o Join faz que o problema do N+1 seja resolvido, por a
 instrução a ser feita já está esclarecida para o Hibernate.
 
-<h3>Usando Beans Validation
+<h3>Usando Beans Validation</h3>
   
 Para fazer a verificação do email sem precisar criar linhas de cod, o spring mvc possui o beans validations, com apenas a anotação @Email ele já válida para você se tem um
 formato parecido com de um email, se não tiver ele não salva o dado no banco. 
 
-<h3>Classe LoteriaRepository
+<h3>Classe LoteriaRepository</h3>
   
 Como Spring é baseado em Injeção de Dependência, em todas as classes deve ter a anotação correta para ela, no caso essa é @Repository como exemplo abaixo Classe LoteriaResource
 Na classe Resource é um endpoid onde vai entrar dados no formato Json para API, nela a anotação são duas @RestController (para o Bens do spring saber que será um controller para entrada de dados e @RequestMapping(value = "?") para informar o Spring o caminho do endpoint. Nesta api será usada (value = "/loteria")
 
 Obs ( para injeção de dependência do Spring é usado @Autowired, essa anotação diminuí a acoplação da API sem precisar instanciar com o new, assim usando apenas o necessário evitando o desperdício de cod e processamento)
 
-<h3>E agora precisamos da classe Service
+<h3>E agora precisamos da classe Service</h3>
   
 Para implementar a regra de negócio, sua anotação é @Service. É nela que vamos implementar o sorteio do número e criar um objeto junto com o email.Na implementação será feito um id, tanto para identificação quanto melhor controle de repetição de e-mail. 
 
@@ -91,7 +91,7 @@ por um ID inexistente.
 
 Foi criado a Classe StandadError para normatizar os atributos de saída do erro no formato Json.
 
-<h2>Testes (JUnit)
+<h2>Testes (JUnit)</h2>
   
 Os testes são de unidade. Os teste podem parecer simples, porém é de extrema importância já que ele monitora mudanças no cod e seu funcionamento, caso um dos testes
 não passar o programado poderá ir direto ao problema assim poupando tempo e um rendimento melhor do tempo.
@@ -103,7 +103,7 @@ Vamos testar as dependência e suas injeções usando o @Mokito( ele cria um clo
 teste unitário) 
 Criar dois pacotes na parte dos test.repository e test.service. Neles vamos criar objetos e testar se os resultados deles são o esperado.
   
-<h2>Swagger
+<h2>Swagger</h2>
   
 Para realizar os teste manuais na aplicação de Get e Post, foi realizado a configuração do Swagger. http://localhost:8080/swagger-ui.html
 
@@ -112,12 +112,12 @@ Para realizar os teste manuais na aplicação de Get e Post, foi realizado a con
 Além de mudar somente no application.properties de test para dev.
 Vamos criar um application-dev e vamos mudar umas configurações nele para usar o Postgres (Vamos usar ele pela melhor sincronização com o Heroku, servidor free).
 
-<h2>Usando Flyway
+<h2>Usando Flyway</h2>
   
 O hibernate por padrão já cria o banco para você apenas com as instruções normais e a JPA, porém essa criação automática pode obter problemas de tamanho de variáveis entre
 outros. E para aplicações que podem ficar maiores e devem ser criadas sub rotinas entre outras coisas que o hibernate(até suporta) o Flyway consegue suprir.Como a sua instalação é fácil e apenas com uma dependência, umas pastas e um arquivo sql para criar as tabelas (e eventos se precisar) será implementado neste projeto.
   
-<h2>Subindo para Heroku
+<h2>Subindo para Heroku</h2>
   
 Agora nossa aplicação está pronta e vai para produção.
 Vamos começar alterando em properties de dev para prod.
