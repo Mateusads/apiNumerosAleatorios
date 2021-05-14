@@ -22,7 +22,7 @@ public class LoteriaService {
 
 	@Autowired
 	private LoteriaRepository loteriaRepository;
-	private List<Loteria> entity = new ArrayList<>();
+	private List<Loteria> entityLoteria = new ArrayList<>();
 	private Loteria loteriaUpdate = new Loteria();
 
 	public List<Loteria> findAll() {
@@ -39,15 +39,15 @@ public class LoteriaService {
 	public Loteria findByEmail(String email) {
 
 		int i = 0;
-		entity = findAll();
+		entityLoteria = findAll();
 		try {
-			for (Loteria loteria : entity) {
+			for (Loteria loteria : entityLoteria) {
 				String string1, string2;
-				string1 = String.valueOf(entity.get(i).getEmail().trim());
+				string1 = String.valueOf(entityLoteria.get(i).getEmail().trim());
 				string2 = String.valueOf(email.trim());
 				i++;
 				if (string1.equalsIgnoreCase(string2)) {
-					return entity.get(i - 1);
+					return entityLoteria.get(i - 1);
 				}
 			}
 		} catch (Exception e) {
@@ -59,7 +59,7 @@ public class LoteriaService {
 
 	public Loteria sorteio(LoteriaDTO objDTO) {
 		Loteria obj = objDTO.transformaParaObjeto(objDTO);
-		entity = loteriaRepository.findAll();
+		entityLoteria = loteriaRepository.findAll();
 		int i = 0;
 		Long numeroAleatorio;
 
@@ -86,10 +86,10 @@ public class LoteriaService {
 
 	public boolean verificarEmail(Loteria obj) {
 		int i = 0;
-		for (Loteria loteria : entity) {
-			loteria = entity.get(i);
+		for (Loteria loteria : entityLoteria) {
+			loteria = entityLoteria.get(i);
 			String string1, string2;
-			string1 = String.valueOf(entity.get(i).getEmail());
+			string1 = String.valueOf(entityLoteria.get(i).getEmail());
 			string2 = String.valueOf(obj.getEmail());
 			string1 = string1.trim();
 			i++;
