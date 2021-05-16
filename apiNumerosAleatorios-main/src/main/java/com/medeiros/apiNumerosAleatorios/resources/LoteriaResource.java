@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.medeiros.apiNumerosAleatorios.dto.LoteriaDTO;
 import com.medeiros.apiNumerosAleatorios.entities.Loteria;
+import com.medeiros.apiNumerosAleatorios.impl.LoteriaServiceImpl;
 import com.medeiros.apiNumerosAleatorios.services.LoteriaService;
 
 @RestController
@@ -26,14 +27,22 @@ import com.medeiros.apiNumerosAleatorios.services.LoteriaService;
 public class LoteriaResource {
 
 	@Autowired
-	private LoteriaService loteriaService;
+	private LoteriaServiceImpl loteriaServiceImpl;
 	private LoteriaDTO loteriaDto;
 	
+	
+	@GetMapping(value = "")
+	public ResponseEntity<List<Loteria>> findAll() {		
+		
+		List<Loteria> obj = loteriaServiceImpl.findAll();
+		
+		return ResponseEntity.ok().body(obj);
+	}
 
 	@GetMapping(value = "/{email}")
 	public ResponseEntity<Loteria> findByEmail(@PathVariable String email) {		
 		
-		Loteria obj = loteriaService.findByEmail(email);
+		Loteria obj = loteriaServiceImpl.findByEmail(email);
 		
 		return ResponseEntity.ok().body(obj);
 	}
@@ -41,7 +50,7 @@ public class LoteriaResource {
 	
 	@PostMapping
 	public ResponseEntity<Loteria> sorteio(@Valid @RequestBody LoteriaDTO objDTO) {
-		Loteria objLoteria = loteriaService.sorteio(objDTO);
+		Loteria objLoteria = loteriaServiceImpl.sorteio(objDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{email}").buildAndExpand(objLoteria).toUri();
 		return ResponseEntity.created(uri).body(objLoteria);
 	}
@@ -63,10 +72,10 @@ public class LoteriaResource {
 //
 //	}
 
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		loteriaService.delete(id);
-		return ResponseEntity.noContent().build();
-	}
+//	@DeleteMapping(value = "/{id}")
+//	public ResponseEntity<Void> delete(@PathVariable Long id) {
+//		loteriaService.delete(id);
+//		return ResponseEntity.noContent().build();
+//	}
 
 }
