@@ -29,28 +29,28 @@ public class LoteriaServiceTest {
 	private LoteriaService loteriaService;
 	
 	
-	@MockBean
-	private Loteria loteria;
-	
-	private static final String EMAIL = "Mateus";
-	private static final Long NUMERO_ALEATORIO = (long) 123456;
-
-	
-	@BeforeEach
-	public void setUp() throws Exception{
-		
-		loteriaService = new LoteriaServiceImpl(loteriaRepository);
-		loteria = new Loteria();
-		loteria.setEmail(EMAIL);
-		loteria.addNumero(NUMERO_ALEATORIO);		
-	}
-	
-	@Test
-	public void save_loteria_repository() throws Exception{
-		
-		loteriaService.saveLoteria(loteria);
-		
-	}	
+//	@MockBean
+//	private Loteria loteria;
+//	
+//	private static final String EMAIL = "Mateus";
+//	private static final Long NUMERO_ALEATORIO = (long) 123456;
+//
+//	
+//	@BeforeEach
+//	public void setUp() throws Exception{
+//		
+//		loteriaService = new LoteriaServiceImpl(loteriaRepository);
+//		loteria = new Loteria();
+//		loteria.setEmail(EMAIL);
+//		loteria.addNumero(NUMERO_ALEATORIO);		
+//	}
+//	
+//	@Test
+//	public void save_loteria_repository() throws Exception{
+//		
+//		loteriaService.saveLoteria(loteria);
+//		
+//	}	
 	
 
 	

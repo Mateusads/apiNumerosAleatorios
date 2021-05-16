@@ -80,7 +80,8 @@ public class Loteria implements Serializable {
 		} else if (!email.equals(other.email))
 			return false;
 		return true;
-	}
+	}	
+
 
 
 }

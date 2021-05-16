@@ -32,27 +32,27 @@ public class LoteriaRepositoryTest {
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 
-	@Test
-	public void createLoteriaData() {
-		Long numero =  (long) 1234;
-		Loteria loteria = new Loteria(null, "mateus.medeiros@gmail.com", numero);
-		this.loteriaService.saveLoteria(loteria);
-		assertThat(loteria.getEmail()).isEqualTo("mateus.medeiros@gmail.com");
-		assertThat(String.valueOf(loteria.getNumeroAleatorio())).isEqualTo("[1234]");
+//	@Test
+//	public void createLoteriaData() {
+//		Long numero =  (long) 1234;
+//		Loteria loteria = new Loteria(null, "mateus.medeiros@gmail.com", numero);
+//		this.loteriaService.saveLoteria(loteria);
+//		assertThat(loteria.getEmail()).isEqualTo("mateus.medeiros@gmail.com");
+//		assertThat(String.valueOf(loteria.getNumeroAleatorio())).isEqualTo("[1234]");
+//
+//	}
+//	
+//	
+//	@Test
+//	public void delete_loteria_repository() throws Exception{
+//		Loteria loteria = new Loteria(null, "mateus.medeiros@gmail.com", 1234L);
+//		this.loteriaService.saveLoteria(loteria);
+//		
+//		this.loteriaService.delete(loteria.getId());
+//		
+//		assertNull(loteria.getId());
+		
+		
 
-	}
 	
-	
-	@Test
-	public void delete_loteria_repository() throws Exception{
-		Loteria loteria = new Loteria(null, "mateus.medeiros@gmail.com", 1234L);
-		this.loteriaService.saveLoteria(loteria);
-		
-		this.loteriaService.delete(loteria.getId());
-		
-		assertNull(loteria.getId());
-		
-		
-
-	}
 }

@@ -29,13 +29,14 @@ public class LoteriaDTO {
 	Long numero;
 
 	public LoteriaDTO(String email, Long numero) {
-		Loteria loteria = new Loteria();			
+		this.email = email;
+		this.numero = numero;
 		
 	}
 	
 	public Loteria transformaParaObjeto(LoteriaDTO objDTO){
 		
-	    return new Loteria(objDTO.email, numero);
+	    return new Loteria(this.email, numero);
 	}
 
 	public void setNumero(Long numero) {
