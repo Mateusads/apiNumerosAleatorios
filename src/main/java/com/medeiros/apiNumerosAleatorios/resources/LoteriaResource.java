@@ -40,10 +40,8 @@ public class LoteriaResource {
 	}
 
 	@GetMapping(value = "/{email}")
-	public ResponseEntity<Loteria> findByEmail(@PathVariable String email) {		
-		
-		Loteria obj = loteriaServiceImpl.findByEmail(email);
-		
+	public ResponseEntity<Loteria> findByEmail(@PathVariable String email) {
+		Loteria obj = loteriaServiceImpl.findByEmail(email);		
 		return ResponseEntity.ok().body(obj);
 	}
 	
@@ -55,22 +53,7 @@ public class LoteriaResource {
 		return ResponseEntity.created(uri).body(objLoteria);
 	}
 
-//	@PostMapping(value = "/buscarEmail")
-//	public ResponseEntity<Loteria> listarPorEmail(@RequestBody Loteria loteria) {
-//		loteria = loteriaService.findByEmail(loteria);
-//		if(loteria != null) {
-//			URI uri = ServletUriComponentsBuilder
-//					.fromCurrentRequest()
-//					.path("/buscarEmail")
-//					.buildAndExpand(loteria.getId())
-//					.toUri();
-//			return ResponseEntity.created(uri).body(loteria);
-//		}else
-//			return ResponseEntity.noContent().build();
-//
-//
-//
-//	}
+
 
 //	@DeleteMapping(value = "/{id}")
 //	public ResponseEntity<Void> delete(@PathVariable Long id) {

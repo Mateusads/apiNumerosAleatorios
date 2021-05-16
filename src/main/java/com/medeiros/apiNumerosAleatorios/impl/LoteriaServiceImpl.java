@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.swing.DefaultRowSorter;
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.medeiros.apiNumerosAleatorios.dto.LoteriaDTO;
 import com.medeiros.apiNumerosAleatorios.entities.Loteria;
 import com.medeiros.apiNumerosAleatorios.repositories.LoteriaRepository;
 import com.medeiros.apiNumerosAleatorios.services.LoteriaService;
+import com.medeiros.apiNumerosAleatorios.services.exceptions.ConstraintViolationExceptions;
 import com.medeiros.apiNumerosAleatorios.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -23,40 +28,30 @@ public class LoteriaServiceImpl implements LoteriaService {
 
 	@Override
 	public List<Loteria> findAll() {
-
 		return loteriaRepository.findAll();
 	}
 
 	@Override
 	public Loteria findByEmail(String email) {
-		String string1, string2;
 		int i = 0;
 		entityLoteria = findAll();
 
 		for (Loteria loteria : entityLoteria) {
-
-			string1 = String.valueOf(entityLoteria.get(i).getEmail().trim());
-			string2 = email.trim();
-
-			i++;
-			System.out.println(string1 + "  " + string2);
-
-			if (string1.equalsIgnoreCase(string2)) {
-				return entityLoteria.get(i - 1);
+			if (verificarEquals(entityLoteria.get(i).getEmail().trim(), email.trim())) {
+				return entityLoteria.get(i);
 			}
+			i++;
 		}
 		throw new ResourceNotFoundException("Email não localizado ");
-
 	}
 
 	@Override
 	public Loteria sorteio(LoteriaDTO objDTO) {
 		Loteria obj = objDTO.transformaParaObjeto(objDTO);
-		entityLoteria = loteriaRepository.findAll();
+		entityLoteria = findAll();
 		Long numeroAleatorio;
 
 		if (verificarEmail(obj) == true) {
-
 			numeroAleatorio = sorteioNumero(loteriaUpdate);
 			loteriaUpdate.addNumero(numeroAleatorio);
 			String string1 = obj.getEmail().trim();
@@ -71,20 +66,18 @@ public class LoteriaServiceImpl implements LoteriaService {
 
 	public boolean verificarEmail(Loteria obj) {
 		int i = 0;
-		for (Loteria loteria : entityLoteria) {
-			loteria = entityLoteria.get(i);
-			String string1, string2;
-			string1 = String.valueOf(loteria.getEmail()).trim();
-			string2 = String.valueOf(obj.getEmail()).trim();
-			i++;
-
-			if (string1.equalsIgnoreCase(string2)) {
-				loteriaUpdate = loteria;
-				return true;
+			if (obj.getEmail() != null) {
+				for (Loteria loteria : entityLoteria) {
+					loteria = entityLoteria.get(i);
+					if (verificarEquals(loteria.getEmail().trim(), obj.getEmail().trim())) {
+						loteriaUpdate = loteria;
+						return true;
+					}
+					i++;
+				}
 			}
-		}
-		return false;
-
+			
+			throw new ConstraintViolationExceptions("Email formato invalido ");
 	}
 
 	public Long sorteioNumero(Loteria loteriaUpdate) {
@@ -98,7 +91,7 @@ public class LoteriaServiceImpl implements LoteriaService {
 		if (equals != true) {
 			return numeroSorteio;
 		} else
-		return sorteioNumero(loteriaUpdate);
+			return sorteioNumero(loteriaUpdate);
 	}
 
 	public Long sortearNumero() {
@@ -106,8 +99,7 @@ public class LoteriaServiceImpl implements LoteriaService {
 		Long numeroAleatorio = (long) (Math.random() * 99999 + 10000);
 		return numeroAleatorio;
 
-	}	
-	
+	}
 
 	private static Boolean verificarEquals(Object varOne, Object varTwo) {
 
@@ -122,9 +114,9 @@ public class LoteriaServiceImpl implements LoteriaService {
 				return false;
 		} else
 			numerosAleatorios = (Set<Long>) varOne;
-			if (numerosAleatorios.contains(varTwo)) {
-				return true;
-			}
+		if (numerosAleatorios.contains(varTwo)) {
+			return true;
+		}
 		return false;
 
 	}
