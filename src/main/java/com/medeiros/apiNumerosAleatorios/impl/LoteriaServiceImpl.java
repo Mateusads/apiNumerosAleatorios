@@ -66,17 +66,22 @@ public class LoteriaServiceImpl implements LoteriaService {
 
 	public boolean verificarEmail(Loteria obj) {
 		int i = 0;
+		
+		System.out.println(obj.getEmail());
 			if (obj.getEmail() != null) {
+				System.out.println("111 " + obj.getEmail());
 				for (Loteria loteria : entityLoteria) {
 					loteria = entityLoteria.get(i);
 					if (verificarEquals(loteria.getEmail().trim(), obj.getEmail().trim())) {
 						loteriaUpdate = loteria;
 						return true;
 					}
-					i++;
-				}
+					i++;	
+				}	
+				return false;
+				
 			}
-			
+			System.out.println("333 " + obj.getEmail());
 			throw new ConstraintViolationExceptions("Email formato invalido ");
 	}
 
