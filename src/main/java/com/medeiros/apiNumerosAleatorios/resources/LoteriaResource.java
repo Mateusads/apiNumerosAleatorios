@@ -19,8 +19,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.medeiros.apiNumerosAleatorios.dto.LoteriaDTO;
 import com.medeiros.apiNumerosAleatorios.entities.Loteria;
-import com.medeiros.apiNumerosAleatorios.impl.LoteriaServiceImpl;
 import com.medeiros.apiNumerosAleatorios.services.LoteriaService;
+import com.medeiros.apiNumerosAleatorios.services.impl.LoteriaServiceImpl;
 
 @RestController
 @RequestMapping(value = "/loteria")

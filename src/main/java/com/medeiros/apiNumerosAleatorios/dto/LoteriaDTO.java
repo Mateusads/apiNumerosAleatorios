@@ -1,15 +1,9 @@
 package com.medeiros.apiNumerosAleatorios.dto;
 
-import java.util.Set;
-
-import javax.persistence.Id;
-import javax.validation.Valid;
-
+import javax.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.medeiros.apiNumerosAleatorios.entities.Loteria;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -21,28 +15,28 @@ public class LoteriaDTO {
 
 	@Autowired
 	@JsonIgnore
-	Loteria loteria;
-	
-	String email;	
-	
+	private Loteria loteria;
+
+	@Email
+	private String email;
+
 	@JsonIgnore
-	Long numero;
+	private Long numero;
 
 	public LoteriaDTO(String email, Long numero) {
 		this.email = email;
 		this.numero = numero;
-		
+
 	}
-	
-	public Loteria transformaParaObjeto(LoteriaDTO objDTO){
-		
-	    return new Loteria(this.email, numero);
+
+	public Loteria transformaParaObjeto(LoteriaDTO objDTO) {
+
+		return new Loteria(this.email, numero);
 	}
 
 	public void setNumero(Long numero) {
 		loteria.addNumero(numero);
-	
+
 	}
-	
 
 }

@@ -1,4 +1,4 @@
-package com.medeiros.apiNumerosAleatorios.impl;
+package com.medeiros.apiNumerosAleatorios.services.impl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,6 +15,7 @@ import com.medeiros.apiNumerosAleatorios.entities.Loteria;
 import com.medeiros.apiNumerosAleatorios.repositories.LoteriaRepository;
 import com.medeiros.apiNumerosAleatorios.services.LoteriaService;
 import com.medeiros.apiNumerosAleatorios.services.exceptions.ConstraintViolationExceptions;
+import com.medeiros.apiNumerosAleatorios.services.exceptions.MethodArgumentNotValidExceptions;
 import com.medeiros.apiNumerosAleatorios.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -28,8 +29,10 @@ public class LoteriaServiceImpl implements LoteriaService {
 
 	@Override
 	public List<Loteria> findAll() {
+
 		return loteriaRepository.findAll();
 	}
+
 
 	@Override
 	public Loteria findByEmail(String email) {
@@ -46,11 +49,12 @@ public class LoteriaServiceImpl implements LoteriaService {
 	}
 
 	@Override
-	public Loteria sorteio(LoteriaDTO objDTO) {
+	public Loteria sorteio(LoteriaDTO objDTO){
 		Loteria obj = objDTO.transformaParaObjeto(objDTO);
+
+		try {			
 		entityLoteria = findAll();
 		Long numeroAleatorio;
-
 		if (verificarEmail(obj) == true) {
 			numeroAleatorio = sorteioNumero(loteriaUpdate);
 			loteriaUpdate.addNumero(numeroAleatorio);
@@ -59,30 +63,34 @@ public class LoteriaServiceImpl implements LoteriaService {
 			return loteriaRepository.save(loteriaUpdate);
 		} else
 			numeroAleatorio = sortearNumero();
-		obj.addNumero(sortearNumero());
+			obj.addNumero(sortearNumero());
+
 		return loteriaRepository.save(obj);
+		} catch (Exception e) {
+			throw new MethodArgumentNotValidExceptions(e);
+		}
 
 	}
 
 	public boolean verificarEmail(Loteria obj) {
 		int i = 0;
-		
+
 		System.out.println(obj.getEmail());
-			if (obj.getEmail() != null) {
-				System.out.println("111 " + obj.getEmail());
-				for (Loteria loteria : entityLoteria) {
-					loteria = entityLoteria.get(i);
-					if (verificarEquals(loteria.getEmail().trim(), obj.getEmail().trim())) {
-						loteriaUpdate = loteria;
-						return true;
-					}
-					i++;	
-				}	
-				return false;
-				
+		if (obj.getEmail() != null) {
+
+			for (Loteria loteria : entityLoteria) {
+				loteria = entityLoteria.get(i);
+				if (verificarEquals(loteria.getEmail().trim(), obj.getEmail().trim())) {
+					loteriaUpdate = loteria;
+					return true;
+				}
+				i++;
 			}
-			System.out.println("333 " + obj.getEmail());
-			throw new ConstraintViolationExceptions("Email formato invalido ");
+			return false;
+
+		}
+		System.out.println("333 " + obj.getEmail());
+		throw new ConstraintViolationExceptions("Email formato invalido ");
 	}
 
 	public Long sorteioNumero(Loteria loteriaUpdate) {

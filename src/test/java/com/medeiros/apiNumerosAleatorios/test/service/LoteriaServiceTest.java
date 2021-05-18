@@ -15,9 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.medeiros.apiNumerosAleatorios.entities.Loteria;
-import com.medeiros.apiNumerosAleatorios.impl.LoteriaServiceImpl;
 import com.medeiros.apiNumerosAleatorios.repositories.LoteriaRepository;
 import com.medeiros.apiNumerosAleatorios.services.LoteriaService;
+import com.medeiros.apiNumerosAleatorios.services.impl.LoteriaServiceImpl;
 
 @SpringBootTest
 public class LoteriaServiceTest {

@@ -13,8 +13,8 @@ public interface LoteriaService {
 	
 	List<Loteria> findAll();
 	
-	Loteria findByEmail(String email);
-	
 	Loteria sorteio(LoteriaDTO objDTO);
+
+	Loteria findByEmail(String email);
 	
 }
