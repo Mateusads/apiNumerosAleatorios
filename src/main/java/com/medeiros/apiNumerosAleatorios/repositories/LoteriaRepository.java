@@ -10,7 +10,7 @@ import com.medeiros.apiNumerosAleatorios.entities.Loteria;
 
 
 	@Repository
-	public interface LoteriaRepository extends JpaRepository<Loteria, Long> {
+	public interface LoteriaRepository extends JpaRepository<Loteria, Long>, LoteriaCustomRepository {
 
 
 	}

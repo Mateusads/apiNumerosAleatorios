@@ -37,7 +37,7 @@ public class LoteriaServiceImpl implements LoteriaService {
 	@Override
 	public Loteria findByEmail(String email) {
 		int i = 0;
-		entityLoteria = findAll();
+		entityLoteria = loteriaRepository.findByEmail(email);
 
 		for (Loteria loteria : entityLoteria) {
 			if (verificarEquals(entityLoteria.get(i).getEmail().trim(), email.trim())) {

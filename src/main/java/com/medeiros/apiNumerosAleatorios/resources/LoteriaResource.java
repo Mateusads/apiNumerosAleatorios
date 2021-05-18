@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import com.medeiros.apiNumerosAleatorios.repositories.LoteriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,8 +30,8 @@ public class LoteriaResource {
 	@Autowired
 	private LoteriaServiceImpl loteriaServiceImpl;
 	private LoteriaDTO loteriaDto;
-	
-	
+
+
 	@GetMapping(value = "")
 	public ResponseEntity<List<Loteria>> findAll() {		
 		
@@ -41,8 +42,9 @@ public class LoteriaResource {
 
 	@GetMapping(value = "/{email}")
 	public ResponseEntity<Loteria> findByEmail(@PathVariable String email) {
-		Loteria obj = loteriaServiceImpl.findByEmail(email);		
+		Loteria obj = loteriaServiceImpl.findByEmail(email);
 		return ResponseEntity.ok().body(obj);
+
 	}
 	
 	
