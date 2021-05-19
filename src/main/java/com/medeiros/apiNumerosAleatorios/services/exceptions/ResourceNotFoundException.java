@@ -6,7 +6,7 @@ public class ResourceNotFoundException extends RuntimeException{
 	
 	
 	public ResourceNotFoundException (Object email) {
-		super("Resorce not found "+ email);
+		super("Resource not found "+ email);
 	}
 
 }

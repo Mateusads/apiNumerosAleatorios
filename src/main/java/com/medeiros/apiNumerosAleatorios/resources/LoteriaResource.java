@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import com.medeiros.apiNumerosAleatorios.repositories.LoteriaRepository;
+import com.medeiros.apiNumerosAleatorios.services.exceptions.ConstraintViolationExceptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,6 +51,7 @@ public class LoteriaResource {
 	
 	@PostMapping
 	public ResponseEntity<Loteria> sorteio(@Valid @RequestBody LoteriaDTO objDTO) {
+
 		Loteria objLoteria = loteriaServiceImpl.sorteio(objDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{email}").buildAndExpand(objLoteria).toUri();
 		return ResponseEntity.created(uri).body(objLoteria);
